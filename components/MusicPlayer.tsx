@@ -1,6 +1,6 @@
 'use client'
 
-const YOUTUBE_PLAYLIST_ID = 'PLmYbSfMbdTWIIH7nKGWPgbukP7wg0NQHt'
+const YOUTUBE_PLAYLIST_ID = 'PLmYbSfMbdTWJDfqOBNFUH_aYoQnnT3E4c'
 
 export default function MusicPlayer({ active }: { active: boolean }) {
   return (
