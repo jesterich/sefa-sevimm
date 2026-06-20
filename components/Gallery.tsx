@@ -39,21 +39,24 @@ function PhotoTile({ photo, index, onClick }: { photo: Photo; index: number; onC
         cursor: 'pointer',
         position: 'relative',
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(24px)',
-        transition: `opacity 0.7s ease ${(index % 12) * 0.06}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${(index % 12) * 0.06}s`,
+        transform: visible ? 'translateY(0)' : 'translateY(28px)',
+        transition: `opacity 0.8s ease ${(index % 12) * 0.07}s, transform 0.8s cubic-bezier(0.22,1,0.36,1) ${(index % 12) * 0.07}s`,
       }}
       className="photo-tile"
     >
-      <Image
-        src={photo.url}
-        alt={`Anı ${index + 1}`}
-        width={500}
-        height={500}
-        style={{ width: '100%', height: 'auto', display: 'block' }}
-        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
-        className="photo-tile-img"
-      />
-      <div className="photo-tile-veil" />
+      <div className="photo-tile-inner">
+        <Image
+          src={photo.url}
+          alt={`Anı ${index + 1}`}
+          width={500}
+          height={500}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
+          className="photo-tile-img"
+        />
+        <div className="photo-tile-veil" />
+        <span className="photo-tile-num">{String(index + 1).padStart(2, '0')}</span>
+      </div>
     </div>
   )
 }
@@ -150,6 +153,7 @@ export default function Gallery() {
             position: 'fixed', inset: 0, zIndex: 1000,
             background: 'rgba(20, 12, 12, 0.94)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
+            animation: 'lightboxFade 0.35s ease',
           }}
         >
           <button
