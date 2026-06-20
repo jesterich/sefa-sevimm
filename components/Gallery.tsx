@@ -22,7 +22,7 @@ function PhotoTile({ photo, index, onClick }: { photo: Photo; index: number; onC
           observer.disconnect()
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -33,12 +33,13 @@ function PhotoTile({ photo, index, onClick }: { photo: Photo; index: number; onC
       ref={ref}
       onClick={onClick}
       style={{
-        aspectRatio: '4/5',
+        breakInside: 'avoid',
+        marginBottom: '4px',
         overflow: 'hidden',
         cursor: 'pointer',
         position: 'relative',
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
+        transform: visible ? 'translateY(0)' : 'translateY(24px)',
         transition: `opacity 0.7s ease ${(index % 12) * 0.06}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${(index % 12) * 0.06}s`,
       }}
       className="photo-tile"
@@ -46,9 +47,10 @@ function PhotoTile({ photo, index, onClick }: { photo: Photo; index: number; onC
       <Image
         src={photo.url}
         alt={`Anı ${index + 1}`}
-        fill
-        style={{ objectFit: 'cover' }}
-        sizes="(max-width: 768px) 50vw, 210px"
+        width={500}
+        height={500}
+        style={{ width: '100%', height: 'auto', display: 'block' }}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
         className="photo-tile-img"
       />
       <div className="photo-tile-veil" />
@@ -130,11 +132,10 @@ export default function Gallery() {
             <p style={{ fontSize: '0.85rem', opacity: 0.65 }}>Fotoğraflar yüklendiğinde burada görünecek</p>
           </div>
         ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
-            gap: '4px',
-          }}>
+          <div
+            style={{ columnGap: '4px' }}
+            className="masonry-gallery"
+          >
             {photos.map((photo, i) => (
               <PhotoTile key={photo.name} photo={photo} index={i} onClick={() => setSelected(i)} />
             ))}
