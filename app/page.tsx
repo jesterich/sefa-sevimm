@@ -1,12 +1,18 @@
+'use client'
+import { useState } from 'react'
 import Gallery from '@/components/Gallery'
 import Counter from '@/components/Counter'
 import MusicPlayer from '@/components/MusicPlayer'
 import Notes from '@/components/Notes'
+import EntranceGate from '@/components/EntranceGate'
 import { SprigLeft, SprigRight, RingMark } from '@/components/Ornament'
 
 export default function Home() {
+  const [entered, setEntered] = useState(false)
+
   return (
     <main>
+      {!entered && <EntranceGate onEnter={() => setEntered(true)} />}
       {/* NAV */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 100,
@@ -94,7 +100,7 @@ export default function Home() {
 
       <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
 
-      <div id="muzik"><MusicPlayer /></div>
+      <div id="muzik"><MusicPlayer active={entered} /></div>
 
       <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
 

@@ -1,11 +1,8 @@
 'use client'
-import { useState } from 'react'
 
 const SPOTIFY_PLAYLIST_ID = '50EwlUiCbRDvHwUEigd7Me'
 
-export default function MusicPlayer() {
-  const [showPlayer, setShowPlayer] = useState(false)
-
+export default function MusicPlayer({ active }: { active: boolean }) {
   return (
     <section style={{ padding: '100px 24px' }}>
       <div style={{ maxWidth: '620px', margin: '0 auto', textAlign: 'center' }}>
@@ -20,11 +17,7 @@ export default function MusicPlayer() {
           Bize Eşlik Eden Şarkılar
         </h2>
 
-        {!showPlayer ? (
-          <button className="btn-outline" onClick={() => setShowPlayer(true)}>
-            Müziği Aç
-          </button>
-        ) : (
+        {active && (
           <div style={{ marginTop: '10px', border: '1px solid var(--line)' }}>
             <iframe
               src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0`}
