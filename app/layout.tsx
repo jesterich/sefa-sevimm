@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Sefa & Sevim 💕',
-  description: 'Evlilik yıl dönümümüz - 28 Haziran 2025',
+  title: 'Sefa & Sevim',
+  description: 'Evlilik yıl dönümümüz — 28 Haziran 2025',
   openGraph: {
-    title: 'Sefa & Sevim 💕',
+    title: 'Sefa & Sevim',
     description: 'Bir yıllık aşkımızın hikayesi',
   }
 }

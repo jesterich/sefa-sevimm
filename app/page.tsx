@@ -1,158 +1,118 @@
-import dynamic from 'next/dynamic'
-import PetalRain from '@/components/PetalRain'
-import Counter from '@/components/Counter'
 import Gallery from '@/components/Gallery'
-import Notes from '@/components/Notes'
+import Counter from '@/components/Counter'
 import MusicPlayer from '@/components/MusicPlayer'
+import Notes from '@/components/Notes'
+import { SprigLeft, SprigRight, RingMark } from '@/components/Ornament'
 
 export default function Home() {
   return (
-    <main style={{ position: 'relative', overflowX: 'hidden' }}>
-      <PetalRain />
+    <main>
+      {/* NAV */}
+      <nav style={{
+        position: 'sticky', top: 0, zIndex: 100,
+        background: 'rgba(250,246,240,0.85)',
+        backdropFilter: 'blur(10px)',
+        borderBottom: '1px solid var(--line)',
+        padding: '18px 24px',
+      }}>
+        <div style={{
+          maxWidth: '1140px', margin: '0 auto',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          flexWrap: 'wrap', gap: '16px',
+        }}>
+          <span className="serif-display" style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--wine)' }}>
+            S &amp; S
+          </span>
+          <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
+            <a href="#galeri" className="nav-pill">Galeri</a>
+            <a href="#sayac" className="nav-pill">Sayaç</a>
+            <a href="#muzik" className="nav-pill">Müzik</a>
+            <a href="#notlar" className="nav-pill">Notlar</a>
+          </div>
+        </div>
+      </nav>
 
       {/* HERO */}
       <section style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '40px 20px',
-        position: 'relative',
-        zIndex: 1,
+        minHeight: '92vh',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        textAlign: 'center', padding: '60px 24px',
       }}>
-        {/* Decorative circles */}
-        <div style={{
-          position: 'absolute', top: '10%', left: '5%',
-          width: '300px', height: '300px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(233,30,99,0.12) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '10%', right: '5%',
-          width: '250px', height: '250px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(156,39,176,0.12) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-
-        <div className="float" style={{ fontSize: '70px', marginBottom: '20px', lineHeight: 1 }}>
-          💍
-        </div>
-
-        <p style={{
-          fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
-          color: '#c2185b',
-          letterSpacing: '4px',
-          textTransform: 'uppercase',
-          marginBottom: '20px',
-          fontWeight: 500,
-        }}>
-          ✨ 1. Yıl Dönümümüz ✨
+        <p className="eyebrow fade-up" style={{ marginBottom: '28px' }}>
+          Birinci Yıl Dönümü
         </p>
 
-        <h1 style={{
-          fontSize: 'clamp(3rem, 10vw, 7rem)',
-          fontWeight: 900,
-          lineHeight: 1,
-          marginBottom: '20px',
+        <div className="fade-up" style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '8px' }}>
+          <SprigLeft size={64} />
+          <RingMark size={36} />
+          <SprigRight size={64} />
+        </div>
+
+        <h1 className="serif-display fade-up" style={{
+          fontSize: 'clamp(3.2rem, 11vw, 7.5rem)',
+          fontWeight: 500,
+          lineHeight: 1.05,
+          color: 'var(--wine)',
+          marginTop: '12px',
         }}>
-          <span className="gold-shimmer">Sefa</span>
-          <span style={{
-            display: 'block',
-            fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-            color: '#e91e63',
-            margin: '8px 0',
-          }}>
-            &amp;
-          </span>
-          <span className="gold-shimmer">Sevim</span>
+          Sefa
+        </h1>
+        <p className="serif-display fade-up" style={{
+          fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+          fontStyle: 'italic',
+          color: 'var(--gold)',
+          margin: '4px 0',
+        }}>
+          &amp;
+        </p>
+        <h1 className="serif-display fade-up" style={{
+          fontSize: 'clamp(3.2rem, 11vw, 7.5rem)',
+          fontWeight: 500,
+          lineHeight: 1.05,
+          color: 'var(--wine)',
+        }}>
+          Sevim
         </h1>
 
-        <div style={{
-          width: '120px', height: '3px',
-          background: 'linear-gradient(90deg, transparent, #e91e63, #9c27b0, transparent)',
-          margin: '20px auto',
-          borderRadius: '2px',
-        }} />
+        <div className="hairline fade-up" style={{ width: '64px', margin: '36px auto 24px' }} />
 
-        <p style={{
-          fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
-          color: '#9c27b0',
-          marginBottom: '8px',
+        <p className="serif-display fade-up" style={{
+          fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
+          fontStyle: 'italic',
+          color: 'var(--wine-soft)',
         }}>
           28 Haziran 2025
         </p>
-        <p style={{
-          fontSize: 'clamp(0.85rem, 2vw, 1rem)',
-          color: '#c2185b',
-          opacity: 0.8,
-        }}>
-          Aşkımızın ilk yılı... 🌸
-        </p>
-
-        <div style={{ marginTop: '50px', display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          {['💕 Anılarımız', '⏱️ Sayaç', '🎵 Müzik', '💌 Notlar'].map((item, i) => (
-            <a
-              key={i}
-              href={`#${['gallery', 'counter', 'music', 'notes'][i]}`}
-              style={{
-                padding: '10px 24px',
-                borderRadius: '50px',
-                background: 'rgba(255,255,255,0.6)',
-                border: '1px solid rgba(156,39,176,0.3)',
-                color: '#9c27b0',
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 600,
-                backdropFilter: 'blur(8px)',
-                transition: 'all 0.3s',
-              }}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-
-        <div style={{ marginTop: '60px', animation: 'float 2s ease-in-out infinite' }}>
-          <span style={{ fontSize: '24px', color: '#ce93d8' }}>↓</span>
-        </div>
       </section>
 
-      {/* GALLERY */}
-      <div id="gallery">
-        <Gallery />
-      </div>
+      <div id="galeri"><Gallery /></div>
 
-      {/* COUNTER */}
-      <div id="counter">
-        <Counter />
-      </div>
+      <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
 
-      {/* MUSIC */}
-      <div id="music">
-        <MusicPlayer />
-      </div>
+      <div id="sayac"><Counter /></div>
 
-      {/* NOTES */}
-      <div id="notes">
-        <Notes />
-      </div>
+      <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
+
+      <div id="muzik"><MusicPlayer /></div>
+
+      <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
+
+      <div id="notlar"><Notes /></div>
 
       {/* FOOTER */}
       <footer style={{
-        textAlign: 'center',
-        padding: '40px 20px',
-        position: 'relative',
-        zIndex: 1,
-        borderTop: '1px solid rgba(156,39,176,0.2)',
+        textAlign: 'center', padding: '70px 24px 50px',
+        borderTop: '1px solid var(--line)',
       }}>
-        <div className="heartbeat" style={{ fontSize: '32px', marginBottom: '12px' }}>💕</div>
-        <p style={{ color: '#9c27b0', fontSize: '1rem', fontWeight: 600 }}>
-          Sefa & Sevim — 28 Haziran 2025
+        <div className="ornament-divider" style={{ marginBottom: '20px' }}>
+          <RingMark size={28} />
+        </div>
+        <p className="serif-display" style={{ fontSize: '1.1rem', fontStyle: 'italic', color: 'var(--wine)' }}>
+          Sefa &amp; Sevim
         </p>
-        <p style={{ color: '#c2185b', fontSize: '0.85rem', marginTop: '8px', opacity: 0.7 }}>
-          Sonsuzluğa adım attığımız gün 🌸
+        <p className="eyebrow" style={{ marginTop: '10px', fontSize: '0.6rem' }}>
+          28 Haziran 2025
         </p>
       </footer>
     </main>

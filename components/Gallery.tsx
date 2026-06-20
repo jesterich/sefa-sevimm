@@ -56,71 +56,58 @@ export default function Gallery() {
   }, [selected, prev, next])
 
   return (
-    <section style={{ padding: '80px 20px', position: 'relative', zIndex: 1 }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <div style={{ fontSize: '40px', marginBottom: '12px' }}>📸</div>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: '#9c27b0', fontWeight: 700, marginBottom: '12px' }}>
+    <section style={{ padding: '120px 24px' }}>
+      <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <p className="eyebrow" style={{ marginBottom: '18px' }}>Galeri</p>
+          <h2 className="serif-display" style={{
+            fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            color: 'var(--wine)',
+          }}>
             Anılarımız
           </h2>
-          <div className="section-divider" />
-          <p style={{ color: '#c2185b' }}>Her kare, sonsuzluğa adım atmış bir an</p>
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px', color: '#9c27b0' }}>
-            <div style={{ fontSize: '40px', marginBottom: '12px' }} className="pulse-soft">🌸</div>
-            <p>Fotoğraflar yükleniyor...</p>
+          <div style={{ textAlign: 'center', padding: '80px', color: 'var(--gold)' }}>
+            <p className="eyebrow">Yükleniyor</p>
           </div>
         ) : photos.length === 0 ? (
-          <div className="glass-card" style={{ padding: '60px', textAlign: 'center', color: '#9c27b0' }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🖼️</div>
-            <p style={{ fontSize: '1.1rem', marginBottom: '8px' }}>Henüz fotoğraf yüklenmemiş</p>
-            <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>Supabase Storage'a fotoğrafları yükleyince burada görünecek</p>
+          <div className="card-frame" style={{ padding: '70px 30px', textAlign: 'center', color: 'var(--wine-soft)' }}>
+            <p className="serif-display" style={{ fontSize: '1.3rem', fontStyle: 'italic', marginBottom: '10px' }}>
+              Henüz fotoğraf yok
+            </p>
+            <p style={{ fontSize: '0.85rem', opacity: 0.65 }}>Fotoğraflar yüklendiğinde burada görünecek</p>
           </div>
         ) : (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: '12px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
+            gap: '4px',
           }}>
             {photos.map((photo, i) => (
               <div
                 key={photo.name}
                 onClick={() => setSelected(i)}
                 style={{
-                  aspectRatio: '1',
-                  borderRadius: '12px',
+                  aspectRatio: '4/5',
                   overflow: 'hidden',
                   cursor: 'pointer',
                   position: 'relative',
-                  boxShadow: '0 4px 15px rgba(156,39,176,0.2)',
-                  transition: 'transform 0.3s, box-shadow 0.3s',
+                  filter: 'grayscale(15%)',
+                  transition: 'filter 0.4s ease',
                 }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)'
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 8px 25px rgba(156,39,176,0.4)'
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.transform = 'scale(1)'
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px rgba(156,39,176,0.2)'
-                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.filter = 'grayscale(0%)' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.filter = 'grayscale(15%)' }}
               >
                 <Image
                   src={photo.url}
                   alt={`Anı ${i + 1}`}
                   fill
                   style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 768px) 50vw, 200px"
-                />
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(135deg, rgba(233,30,99,0.2), rgba(156,39,176,0.2))',
-                  opacity: 0,
-                  transition: 'opacity 0.3s',
-                }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.opacity = '1'}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.opacity = '0'}
+                  sizes="(max-width: 768px) 50vw, 210px"
                 />
               </div>
             ))}
@@ -128,63 +115,56 @@ export default function Gallery() {
         )}
       </div>
 
-      {/* Lightbox */}
       {selected !== null && photos[selected] && (
         <div
           onClick={() => setSelected(null)}
           style={{
             position: 'fixed', inset: 0, zIndex: 1000,
-            background: 'rgba(0,0,0,0.92)',
+            background: 'rgba(20, 12, 12, 0.94)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
         >
           <button
             onClick={e => { e.stopPropagation(); prev() }}
             style={{
-              position: 'fixed', left: '20px', top: '50%', transform: 'translateY(-50%)',
-              background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '50%',
-              width: '50px', height: '50px', color: 'white', fontSize: '24px',
+              position: 'fixed', left: '24px', top: '50%', transform: 'translateY(-50%)',
+              background: 'transparent', border: '1px solid rgba(250,246,240,0.3)',
+              width: '46px', height: '46px', color: 'var(--ivory)', fontSize: '20px',
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              backdropFilter: 'blur(10px)',
             }}
           >‹</button>
 
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }}
-          >
+          <div onClick={e => e.stopPropagation()} style={{ position: 'relative', maxWidth: '88vw', maxHeight: '88vh' }}>
             <Image
               src={photos[selected].url}
               alt={`Anı ${selected + 1}`}
               width={900}
               height={700}
-              style={{ objectFit: 'contain', maxHeight: '85vh', borderRadius: '12px' }}
+              style={{ objectFit: 'contain', maxHeight: '82vh', width: 'auto' }}
             />
-            <div style={{
-              position: 'absolute', bottom: '12px', left: '50%', transform: 'translateX(-50%)',
-              color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem',
+            <p className="eyebrow" style={{
+              textAlign: 'center', marginTop: '18px', color: 'var(--gold-pale)',
             }}>
-              {selected + 1} / {photos.length}
-            </div>
+              {String(selected + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}
+            </p>
           </div>
 
           <button
             onClick={e => { e.stopPropagation(); next() }}
             style={{
-              position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)',
-              background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '50%',
-              width: '50px', height: '50px', color: 'white', fontSize: '24px',
+              position: 'fixed', right: '24px', top: '50%', transform: 'translateY(-50%)',
+              background: 'transparent', border: '1px solid rgba(250,246,240,0.3)',
+              width: '46px', height: '46px', color: 'var(--ivory)', fontSize: '20px',
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              backdropFilter: 'blur(10px)',
             }}
           >›</button>
 
           <button
             onClick={() => setSelected(null)}
             style={{
-              position: 'fixed', top: '20px', right: '20px',
-              background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '50%',
-              width: '40px', height: '40px', color: 'white', fontSize: '20px',
+              position: 'fixed', top: '24px', right: '24px',
+              background: 'transparent', border: '1px solid rgba(250,246,240,0.3)',
+              width: '38px', height: '38px', color: 'var(--ivory)', fontSize: '16px',
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
           >✕</button>

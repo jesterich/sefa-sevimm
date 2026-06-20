@@ -38,50 +38,44 @@ export default function Counter() {
   ]
 
   return (
-    <section style={{ padding: '80px 20px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-      <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-        <div className="glass-card" style={{ padding: '50px 40px' }}>
-          <div className="heartbeat" style={{ fontSize: '48px', marginBottom: '12px' }}>❤️</div>
-          <h2 style={{
-            fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
-            color: '#9c27b0',
-            marginBottom: '8px',
-            fontWeight: 700,
-          }}>
-            Birlikte Geçirdiğimiz Zaman
-          </h2>
-          <p style={{ color: '#c2185b', marginBottom: '40px', fontSize: '1rem' }}>
-            28 Haziran 2025'ten bu yana...
-          </p>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-          }}>
-            {boxes.map(({ label, value }) => (
-              <div key={label} style={{
-                background: 'linear-gradient(135deg, rgba(233,30,99,0.1), rgba(156,39,176,0.15))',
-                borderRadius: '16px',
-                padding: '20px 10px',
-                border: '1px solid rgba(233,30,99,0.2)',
+    <section style={{ padding: '120px 24px', position: 'relative' }}>
+      <div style={{ maxWidth: '720px', margin: '0 auto', textAlign: 'center' }}>
+        <p className="eyebrow" style={{ marginBottom: '18px' }}>Birlikte Geçen Zaman</p>
+        <h2 className="serif-display" style={{
+          fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+          fontWeight: 500,
+          fontStyle: 'italic',
+          color: 'var(--wine)',
+          marginBottom: '50px',
+        }}>
+          28 Haziran 2025&apos;ten bu yana
+        </h2>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '0px',
+          border: '1px solid var(--line)',
+        }}>
+          {boxes.map(({ label, value }, i) => (
+            <div key={label} style={{
+              padding: '36px 8px',
+              borderRight: i < 3 ? '1px solid var(--line)' : 'none',
+            }}>
+              <div className="serif-display" style={{
+                fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
+                fontWeight: 500,
+                color: 'var(--wine)',
+                lineHeight: 1,
+                marginBottom: '10px',
               }}>
-                <div style={{
-                  fontSize: 'clamp(1.8rem, 5vw, 3rem)',
-                  fontWeight: 800,
-                  background: 'linear-gradient(135deg, #e91e63, #9c27b0)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  lineHeight: 1,
-                  marginBottom: '8px',
-                }}>
-                  {String(value).padStart(2, '0')}
-                </div>
-                <div style={{ color: '#9c27b0', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  {label}
-                </div>
+                {String(value).padStart(2, '0')}
               </div>
-            ))}
-          </div>
+              <div className="eyebrow" style={{ fontSize: '0.62rem' }}>
+                {label}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

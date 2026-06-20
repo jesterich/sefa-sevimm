@@ -45,120 +45,96 @@ export default function Notes() {
     setLoading(false)
   }
 
-  const formatDate = (d: string) => {
-    return new Date(d).toLocaleDateString('tr-TR', {
-      day: 'numeric', month: 'long', year: 'numeric',
-    })
+  const formatDate = (d: string) =>
+    new Date(d).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+
+  const fieldStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '14px 4px',
+    border: 'none',
+    borderBottom: '1px solid var(--line)',
+    background: 'transparent',
+    fontSize: '1rem',
+    color: 'var(--ink)',
+    outline: 'none',
+    transition: 'border-color 0.3s',
   }
 
   return (
-    <section style={{ padding: '80px 20px', position: 'relative', zIndex: 1 }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <div style={{ fontSize: '40px', marginBottom: '12px' }}>💌</div>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: '#9c27b0', fontWeight: 700, marginBottom: '12px' }}>
-            Sevgi Notları
+    <section style={{ padding: '120px 24px' }}>
+      <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <p className="eyebrow" style={{ marginBottom: '18px' }}>Misafir Defteri</p>
+          <h2 className="serif-display" style={{
+            fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            color: 'var(--wine)',
+          }}>
+            Bir Not Bırak
           </h2>
-          <div className="section-divider" />
-          <p style={{ color: '#c2185b' }}>Sefa & Sevim'e bir mesaj bırak</p>
         </div>
 
-        {/* Form */}
-        <div className="glass-card" style={{ padding: '40px', marginBottom: '40px' }}>
+        <div className="card-frame" style={{ padding: '48px 40px', marginBottom: '56px' }}>
           {sent ? (
             <div style={{ textAlign: 'center', padding: '20px' }}>
-              <div style={{ fontSize: '48px', marginBottom: '12px' }} className="heartbeat">💕</div>
-              <p style={{ color: '#9c27b0', fontSize: '1.2rem', fontWeight: 600 }}>
-                Teşekkürler! Notun gönderildi 🌸
+              <p className="serif-display" style={{ color: 'var(--wine)', fontSize: '1.3rem', fontStyle: 'italic' }}>
+                Teşekkürler — notunuz iletildi.
               </p>
             </div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
               <div>
-                <label style={{ color: '#9c27b0', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                  Adın 💜
-                </label>
+                <p className="eyebrow" style={{ fontSize: '0.65rem', marginBottom: '6px' }}>İsim</p>
                 <input
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  placeholder="İsmin..."
-                  style={{
-                    width: '100%', padding: '12px 16px',
-                    border: '2px solid rgba(156,39,176,0.3)',
-                    borderRadius: '12px', fontSize: '1rem',
-                    background: 'rgba(255,255,255,0.7)',
-                    color: '#4a1942', outline: 'none',
-                    transition: 'border-color 0.3s',
-                    fontFamily: 'Georgia, serif',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#9c27b0')}
-                  onBlur={e => (e.target.style.borderColor = 'rgba(156,39,176,0.3)')}
+                  placeholder="Adınız"
+                  style={fieldStyle}
+                  onFocus={e => (e.target.style.borderColor = 'var(--wine)')}
+                  onBlur={e => (e.target.style.borderColor = 'var(--line)')}
                 />
               </div>
               <div>
-                <label style={{ color: '#9c27b0', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                  Mesajın 🩷
-                </label>
+                <p className="eyebrow" style={{ fontSize: '0.65rem', marginBottom: '6px' }}>Mesaj</p>
                 <textarea
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  placeholder="Bu çifte bir şeyler söyle..."
+                  placeholder="Bize birkaç söz yazın..."
                   rows={4}
-                  style={{
-                    width: '100%', padding: '12px 16px',
-                    border: '2px solid rgba(156,39,176,0.3)',
-                    borderRadius: '12px', fontSize: '1rem',
-                    background: 'rgba(255,255,255,0.7)',
-                    color: '#4a1942', outline: 'none', resize: 'vertical',
-                    transition: 'border-color 0.3s',
-                    fontFamily: 'Georgia, serif',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#9c27b0')}
-                  onBlur={e => (e.target.style.borderColor = 'rgba(156,39,176,0.3)')}
+                  style={{ ...fieldStyle, resize: 'vertical' }}
+                  onFocus={e => (e.target.style.borderColor = 'var(--wine)')}
+                  onBlur={e => (e.target.style.borderColor = 'var(--line)')}
                 />
               </div>
               <button
-                className="romantic-btn"
+                className="btn-primary"
                 onClick={handleSubmit}
                 disabled={loading || !name.trim() || !message.trim()}
-                style={{ opacity: loading || !name.trim() || !message.trim() ? 0.6 : 1 }}
+                style={{ alignSelf: 'center', marginTop: '8px' }}
               >
-                {loading ? '⏳ Gönderiliyor...' : '💌 Not Bırak'}
+                {loading ? 'Gönderiliyor' : 'Notu Gönder'}
               </button>
             </div>
           )}
         </div>
 
-        {/* Notes List */}
-        {fetchLoading ? (
-          <div style={{ textAlign: 'center', color: '#9c27b0', padding: '40px' }}>
-            <div className="pulse-soft" style={{ fontSize: '32px' }}>💜</div>
-          </div>
-        ) : notes.length > 0 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {notes.map(note => (
-              <div key={note.id} className="glass-card" style={{ padding: '24px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                  <div style={{
-                    fontWeight: 700, color: '#9c27b0',
-                    display: 'flex', alignItems: 'center', gap: '8px',
-                  }}>
-                    <span style={{
-                      width: '36px', height: '36px', borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #e91e63, #9c27b0)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'white', fontSize: '14px', fontWeight: 700, flexShrink: 0,
-                    }}>
-                      {note.author_name.charAt(0).toUpperCase()}
-                    </span>
+        {!fetchLoading && notes.length > 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {notes.map((note, i) => (
+              <div key={note.id} style={{
+                padding: '28px 4px',
+                borderTop: i === 0 ? '1px solid var(--line)' : 'none',
+                borderBottom: '1px solid var(--line)',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '10px' }}>
+                  <p className="serif-display" style={{ fontWeight: 600, color: 'var(--wine)', fontSize: '1.1rem' }}>
                     {note.author_name}
-                  </div>
-                  <span style={{ color: '#c2185b', fontSize: '0.8rem', opacity: 0.7 }}>
-                    {formatDate(note.created_at)}
-                  </span>
+                  </p>
+                  <p className="eyebrow" style={{ fontSize: '0.6rem' }}>{formatDate(note.created_at)}</p>
                 </div>
-                <p style={{ color: '#4a1942', lineHeight: 1.7, fontSize: '1rem' }}>
+                <p style={{ color: 'var(--ink)', lineHeight: 1.75, fontSize: '0.96rem', fontWeight: 300 }}>
                   {note.message}
                 </p>
               </div>

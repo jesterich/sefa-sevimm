@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
 :root {
-  --pink-light: #fce4ec;
-  --pink-mid: #f48fb1;
-  --pink-deep: #e91e63;
-  --purple-light: #f3e5f5;
-  --purple-mid: #ce93d8;
-  --purple-deep: #9c27b0;
-  --gold: #d4af37;
+  --ivory: #faf6f0;
+  --ivory-deep: #f3ecdf;
+  --wine: #5c1f2e;
+  --wine-soft: #7a3142;
+  --gold: #a6824d;
+  --gold-pale: #cbb27e;
+  --ink: #2b211d;
+  --line: rgba(92, 31, 46, 0.18);
 }
 
 * {
@@ -21,96 +23,146 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #fce4ec 100%);
+  background: var(--ivory);
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(166,130,77,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 92%, rgba(92,31,46,0.05) 0%, transparent 45%);
   min-height: 100vh;
-  font-family: 'Georgia', serif;
-  color: #4a1942;
+  font-family: 'Jost', sans-serif;
+  color: var(--ink);
+  font-weight: 300;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #fce4ec; }
-::-webkit-scrollbar-thumb { background: #ce93d8; border-radius: 3px; }
+h1, h2, h3, .serif-display {
+  font-family: 'Cormorant Garamond', serif;
+}
 
-/* Animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
+.eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--ivory); }
+::-webkit-scrollbar-thumb { background: var(--gold-pale); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes pulse-soft {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes drawLine {
+  from { width: 0; }
+  to { width: 100%; }
 }
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.3); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.3); }
-  70% { transform: scale(1); }
-}
-@keyframes petal-fall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+@keyframes softFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
-.fade-in-up { animation: fadeInUp 0.8s ease forwards; }
-.pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
-.float { animation: float 3s ease-in-out infinite; }
-.heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
+.fade-up { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-.gold-shimmer {
-  background: linear-gradient(90deg, #d4af37, #f0d060, #d4af37);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(156, 39, 176, 0.15);
-}
-
-.romantic-btn {
-  background: linear-gradient(135deg, #e91e63, #9c27b0);
-  color: white;
+.hairline {
+  height: 1px;
+  background: var(--line);
   border: none;
-  border-radius: 50px;
-  padding: 12px 32px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
-}
-.romantic-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.5);
 }
 
-.section-divider {
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #e91e63, #9c27b0);
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--gold);
+}
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  height: 1px;
+  width: 48px;
+  background: var(--line);
+}
+
+.card-frame {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
   border-radius: 2px;
-  margin: 0 auto 24px;
+  position: relative;
+}
+.card-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(166,130,77,0.25);
+  pointer-events: none;
 }
 
-/* Petals */
-.petal {
-  position: fixed;
-  pointer-events: none;
-  font-size: 20px;
-  animation: petal-fall linear forwards;
-  z-index: 0;
+.btn-primary {
+  background: var(--wine);
+  color: var(--ivory);
+  border: 1px solid var(--wine);
+  border-radius: 0;
+  padding: 13px 36px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+.btn-primary:hover {
+  background: transparent;
+  color: var(--wine);
+}
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--wine);
+  border: 1px solid var(--wine);
+  border-radius: 0;
+  padding: 13px 36px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+.btn-outline:hover {
+  background: var(--wine);
+  color: var(--ivory);
+}
+
+.nav-pill {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wine-soft);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+}
+.nav-pill:hover {
+  border-color: var(--gold);
+  color: var(--wine);
+}
+
+input, textarea {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+}
+input::placeholder, textarea::placeholder {
+  color: rgba(43,33,29,0.35);
+  font-weight: 300;
 }
