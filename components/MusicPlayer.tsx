@@ -1,11 +1,11 @@
 'use client'
 
-const SPOTIFY_PLAYLIST_ID = '50EwlUiCbRDvHwUEigd7Me'
+const YOUTUBE_PLAYLIST_ID = 'PLmYbSfMbdTWIIH7nKGWPgbukP7wg0NQHt'
 
 export default function MusicPlayer({ active }: { active: boolean }) {
   return (
     <section style={{ padding: '100px 24px' }}>
-      <div style={{ maxWidth: '620px', margin: '0 auto', textAlign: 'center' }}>
+      <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
         <p className="eyebrow" style={{ marginBottom: '18px' }}>Çalma Listesi</p>
         <h2 className="serif-display" style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
@@ -18,13 +18,19 @@ export default function MusicPlayer({ active }: { active: boolean }) {
         </h2>
 
         {active && (
-          <div style={{ marginTop: '10px', border: '1px solid var(--line)' }}>
+          <div style={{
+            border: '1px solid var(--line)',
+            aspectRatio: '16/9',
+            overflow: 'hidden',
+          }}>
             <iframe
-              src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0`}
               width="100%"
-              height="352"
+              height="100%"
+              src={`https://www.youtube.com/embed/videoseries?list=${YOUTUBE_PLAYLIST_ID}&autoplay=1`}
+              title="Çalma Listesi"
               frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
               loading="lazy"
             />
           </div>
