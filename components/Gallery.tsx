@@ -1,11 +1,59 @@
 'use client'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
 
 interface Photo {
   name: string
   url: string
+}
+
+function PhotoTile({ photo, index, onClick }: { photo: Photo; index: number; onClick: () => void }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      onClick={onClick}
+      style={{
+        aspectRatio: '4/5',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        position: 'relative',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
+        transition: `opacity 0.7s ease ${(index % 12) * 0.06}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${(index % 12) * 0.06}s`,
+      }}
+      className="photo-tile"
+    >
+      <Image
+        src={photo.url}
+        alt={`Anı ${index + 1}`}
+        fill
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 50vw, 210px"
+        className="photo-tile-img"
+      />
+      <div className="photo-tile-veil" />
+    </div>
+  )
 }
 
 export default function Gallery() {
@@ -88,28 +136,7 @@ export default function Gallery() {
             gap: '4px',
           }}>
             {photos.map((photo, i) => (
-              <div
-                key={photo.name}
-                onClick={() => setSelected(i)}
-                style={{
-                  aspectRatio: '4/5',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  filter: 'grayscale(15%)',
-                  transition: 'filter 0.4s ease',
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.filter = 'grayscale(0%)' }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.filter = 'grayscale(15%)' }}
-              >
-                <Image
-                  src={photo.url}
-                  alt={`Anı ${i + 1}`}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 768px) 50vw, 210px"
-                />
-              </div>
+              <PhotoTile key={photo.name} photo={photo} index={i} onClick={() => setSelected(i)} />
             ))}
           </div>
         )}

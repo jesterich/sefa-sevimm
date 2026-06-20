@@ -7,7 +7,11 @@ export default function EntranceGate({ onEnter }: { onEnter: () => void }) {
 
   const handleEnter = () => {
     setClosing(true)
-    setTimeout(onEnter, 700)
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+      onEnter()
+    }, 700)
   }
 
   return (
@@ -57,7 +61,7 @@ export default function EntranceGate({ onEnter }: { onEnter: () => void }) {
         onClick={handleEnter}
         style={{ animationDelay: '0.3s' }}
       >
-        Siteye Gir
+        Hikayemize Gir
       </button>
 
       <p className="eyebrow fade-up" style={{

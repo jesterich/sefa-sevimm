@@ -1,14 +1,20 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Gallery from '@/components/Gallery'
 import Counter from '@/components/Counter'
 import MusicPlayer from '@/components/MusicPlayer'
-import Notes from '@/components/Notes'
 import EntranceGate from '@/components/EntranceGate'
 import { SprigLeft, SprigRight, RingMark } from '@/components/Ornament'
 
 export default function Home() {
   const [entered, setEntered] = useState(false)
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <main>
@@ -33,7 +39,6 @@ export default function Home() {
             <a href="#galeri" className="nav-pill">Galeri</a>
             <a href="#sayac" className="nav-pill">Sayaç</a>
             <a href="#muzik" className="nav-pill">Müzik</a>
-            <a href="#notlar" className="nav-pill">Notlar</a>
           </div>
         </div>
       </nav>
@@ -101,10 +106,6 @@ export default function Home() {
       <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
 
       <div id="muzik"><MusicPlayer active={entered} /></div>
-
-      <hr className="hairline" style={{ maxWidth: '1140px', margin: '0 auto' }} />
-
-      <div id="notlar"><Notes /></div>
 
       {/* FOOTER */}
       <footer style={{
