@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-const SPOTIFY_PLAYLIST_ID = 'PLAYLIST_ID_BURAYA'
+const SPOTIFY_PLAYLIST_ID = '50EwlUiCbRDvHwUEigd7Me'
 
 export default function MusicPlayer() {
   const [showPlayer, setShowPlayer] = useState(false)
