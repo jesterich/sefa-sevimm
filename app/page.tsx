@@ -4,6 +4,7 @@ import Gallery from '@/components/Gallery'
 import Counter from '@/components/Counter'
 import MusicPlayer from '@/components/MusicPlayer'
 import EntranceGate from '@/components/EntranceGate'
+import Balloons from '@/components/Balloons'
 import { SprigLeft, SprigRight, RingMark } from '@/components/Ornament'
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <main>
       {!entered && <EntranceGate onEnter={() => setEntered(true)} />}
+      {entered && <Balloons />}
       {/* NAV */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 100,
